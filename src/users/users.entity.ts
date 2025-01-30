@@ -1,7 +1,6 @@
 import { UUID } from 'crypto';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Image } from '../images/entities/image.entity';
-import { Certificate } from '../certificates/entities/certificate.entity';
 
 @Entity({ name: 'user' })
 export class User {
@@ -25,9 +24,4 @@ export class User {
 
   @OneToMany(() => Image, (image) => image.user, { nullable: true })
   images: Image[];
-
-  @OneToMany(() => Certificate, (certificate) => certificate.user, {
-    nullable: true,
-  })
-  certificates: Certificate[];
 }

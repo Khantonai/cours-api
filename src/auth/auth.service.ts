@@ -29,17 +29,16 @@ export class AuthService {
     return user;
   }
 
-  async getUserIdFromToken(token: string): Promise<string> {
+  async getUserInfoFromToken(token: string): Promise<{ email: string; id: string, isAdmin: boolean }> {
     try {
-      const decoded = this.jwtService.verify(token);
-      return decoded.id;
+      return this.jwtService.verify(token);
     } catch (error) {
       throw new UnauthorizedException('Invalid token');
     }
   }
 
   async login(user: User): Promise<AccessToken> {
-    const payload = { email: user.email, id: user.id };
+    const payload = { email: user.email, id: user.id, isAdmin: user.isAdmin };
     return { access_token: this.jwtService.sign(payload) };
   }
 
@@ -54,7 +53,6 @@ export class AuthService {
       password: hashedPassword,
       isAdmin: false,
       images: [],
-      certificates: [],
     };
     await this.usersService.create(newUser);
     return this.login(newUser);
