@@ -53,7 +53,7 @@ export class ImagesController {
     const imageUrl = `/uploads/raw-images/${file.filename}`;
     const modifiedImageUrl = `/uploads/modified-images/${file.filename}`;
     const token = authHeader.split(' ')[1];
-    const user = await this.authService.getUserIdFromToken(token);
+    const user = (await this.authService.getUserInfoFromToken(token)).id;
 
     const newImageDto = {
       ...createImageDto,
