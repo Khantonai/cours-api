@@ -7,7 +7,6 @@ import {
   OneToOne,
 } from 'typeorm';
 import { User } from '../../users/users.entity';
-import { Certificate } from '../../certificates/entities/certificate.entity';
 
 @Entity('images')
 export class Image {
@@ -20,11 +19,9 @@ export class Image {
   @Column({ nullable: false })
   modifiedImageUrl: string;
 
+  @Column({ nullable: false })
+  view: number;
+
   @ManyToOne(() => User, (user) => user.images, { nullable: false })
   user: User;
-
-  @OneToOne(() => Certificate, (certificate) => certificate.image, {
-    nullable: true,
-  })
-  certificate: Certificate;
 }

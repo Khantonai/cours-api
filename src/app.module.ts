@@ -3,12 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { User } from './users/users.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Certificate } from './certificates/entities/certificate.entity';
 import { Image } from './images/entities/image.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { CertificatesModule } from './certificates/certificates.module';
 import { ImagesModule } from './images/images.module';
 
 @Module({
@@ -23,14 +21,13 @@ import { ImagesModule } from './images/images.module';
         database: configService.get<string>('DB_NAME'),
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
-        entities: [User, Certificate, Image],
+        entities: [User, Image],
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
     UsersModule,
     AuthModule,
-    CertificatesModule,
     ImagesModule,
   ],
   controllers: [AppController],
