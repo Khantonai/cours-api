@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { User } from 'src/users/users.entity';
@@ -23,6 +27,15 @@ export class AuthService {
       throw new BadRequestException('Password does not match');
     }
     return user;
+  }
+
+  async getUserIdFromToken(token: string): Promise<string> {
+    try {
+      const decoded = this.jwtService.verify(token);
+      return decoded.id;
+    } catch (error) {
+      throw new UnauthorizedException('Invalid token');
+    }
   }
 
   async login(user: User): Promise<AccessToken> {

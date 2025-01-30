@@ -1,9 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCertificateDto } from './dto/create-certificate.dto';
 import { UpdateCertificateDto } from './dto/update-certificate.dto';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Certificate } from './entities/certificate.entity';
+
 
 @Injectable()
 export class CertificatesService {
+  constructor(
+    @InjectRepository(Certificate)
+    private readonly certificateRepository: Repository<Certificate>,
+  ) {}
+
   create(createCertificateDto: CreateCertificateDto) {
     return 'This action adds a new certificate';
   }

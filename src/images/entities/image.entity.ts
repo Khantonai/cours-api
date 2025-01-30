@@ -18,17 +18,13 @@ export class Image {
   imageUrl: string;
 
   @Column({ nullable: false })
-  imageBase64: string;
-
-  @Column({ nullable: false })
   modifiedImageUrl: string;
-
-  @Column({ nullable: false })
-  modifiedImageBase64: string;
 
   @ManyToOne(() => User, (user) => user.images, { nullable: false })
   user: User;
 
-  @OneToOne(() => Certificate, (certificate) => certificate.image)
+  @OneToOne(() => Certificate, (certificate) => certificate.image, {
+    nullable: true,
+  })
   certificate: Certificate;
 }
