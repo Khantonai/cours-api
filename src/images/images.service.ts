@@ -4,6 +4,8 @@ import { UpdateImageDto } from './dto/update-image.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Image } from './entities/image.entity';
+import { UUID } from 'crypto';
+
 
 @Injectable()
 export class ImagesService {
@@ -17,8 +19,8 @@ export class ImagesService {
     // return 'This action adds a new image';
   }
 
-  findAll() {
-    return `This action returns all images`;
+  async findAll(userId: string) {
+    return await this.imageRepository.find({ where: { user: { id: userId as UUID } } });
   }
 
   findOne(id: number) {
