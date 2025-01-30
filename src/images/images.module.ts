@@ -4,9 +4,10 @@ import { ImagesController } from './images.controller';
 import { Image } from './entities/image.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'src/auth/auth.module';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Image]), AuthModule],
+  imports: [TypeOrmModule.forFeature([Image]), AuthModule, UsersModule],
   controllers: [ImagesController],
   providers: [ImagesService],
 })

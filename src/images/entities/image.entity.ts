@@ -19,7 +19,7 @@ export class Image {
   @Column({ nullable: false })
   modifiedImageUrl: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, default: 0 })
   view: number;
 
   @ManyToOne(() => User, (user) => user.images, { nullable: false })
